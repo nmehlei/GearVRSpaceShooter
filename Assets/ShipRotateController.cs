@@ -13,7 +13,9 @@ public class ShipRotateController : MonoBehaviour
     // Unity fields
 
     [Header("Speed")]
-    public float rotationSpeed = DEFAULT_ROTATION_SPEED;
+    public float yawRotationSpeed = DEFAULT_ROTATION_SPEED;
+    public float pitchRotationSpeed = DEFAULT_ROTATION_SPEED;
+    public float rollRotationSpeed = DEFAULT_ROTATION_SPEED;
 
     [Header("Deadzone")]
     [Range(0f, 0.99f)]
@@ -46,7 +48,7 @@ public class ShipRotateController : MonoBehaviour
     
     private float currentSpeedFactor = 0;
 
-    private float lastControllerFix = 0;
+    //private float lastControllerFix = 0;
 
     private bool movementEnabled = false;
     private float lastMovementEnabledChange = 0;
@@ -91,7 +93,7 @@ public class ShipRotateController : MonoBehaviour
                 rollFactor = outerDeadzoneValue;
 
             // do rotate
-            transform.Rotate(yawFactor * rotationSpeed, pitchFactor * rotationSpeed, rollFactor * rotationSpeed);
+            transform.Rotate(yawFactor * yawRotationSpeed, pitchFactor * pitchRotationSpeed, rollFactor * rollRotationSpeed);
 
             // update rotation sliders
             if (YUpTransform != null && YDownTransform != null)
@@ -126,16 +128,17 @@ public class ShipRotateController : MonoBehaviour
             {
                 if (rollFactor > 0)
                 {
-                    ZUpTransform.localScale = new Vector3(rollFactor * 2, 1, 1);
+                    ZUpTransform.localScale = new Vector3(rollFactor * -2, 1, 1);
                     ZDownTransform.localScale = new Vector3(0, 1, 1);
                 }
                 else
                 {
                     ZUpTransform.localScale = new Vector3(0, 1, 1);
-                    ZDownTransform.localScale = new Vector3(rollFactor * 2, 1, 1);
+                    ZDownTransform.localScale = new Vector3(rollFactor * -2, 1, 1);
                 }
             }
 
+            // TODO: remove debug
             upperTextLabelRight.text = string.Format("X: {0:N2}{1}Y: {2:N2}{3}Z: {4:N2}", rotation.x, Environment.NewLine,
                     rotation.y, Environment.NewLine, rotation.z);
 

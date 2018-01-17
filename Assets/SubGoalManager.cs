@@ -33,8 +33,6 @@ namespace Assets
         public void IncrementSubGoalNumber()
         {
             NextSubGoalNumber++;
-
-            Debug.Log("IncrementSubGoalNumber !!!");
         }
     }
 }

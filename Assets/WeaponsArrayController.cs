@@ -3,14 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponsArrayController : MonoBehaviour {
+
+    // Units fields
+
     public GameObject shot;
+
     public Transform leftShotSpawnTransform;
+
     public Transform rightShotSpawnTransform;
 
     public float fireRate = 0.5f;
+
+    // Fields
+
     private float nextFire = 0.5f;
 
     private bool isLeft = true;
+
+    // Methods
 
     void Update()
     {

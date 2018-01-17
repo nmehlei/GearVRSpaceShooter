@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Assets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,12 +15,7 @@ public class ScoreManager : MonoBehaviour
 
     private bool _gameEnded;
     private TimeSpan _gameEndTimeSpan;
-
-    void OnCollisionEnter(Collision collisionInfo)
-    {
-
-    }
-
+    
     void OnTriggerEnter(Collider other)
     {
         var subGoal = other.gameObject.GetComponent<SubGoal>();
@@ -56,9 +49,12 @@ public class ScoreManager : MonoBehaviour
 	    if (_gameEnded)
 	    {
 	        OVRInput.FixedUpdate();
-            upperTextLabelLeft.text = string.Format("Press touchpad to restart{0}time was: {1}:{2}", Environment.NewLine,
+
+            upperTextLabelLeft.text = string.Format("Press touchpad to restart{0}Your time was: {1}:{2}", Environment.NewLine,
                 _gameEndTimeSpan.Minutes < 10 ? "0" + _gameEndTimeSpan.Minutes : _gameEndTimeSpan.Minutes.ToString(),
                 _gameEndTimeSpan.Seconds < 10 ? "0" + _gameEndTimeSpan.Seconds : _gameEndTimeSpan.Seconds.ToString());
+
+            // wait for user input so user has time to read his/her time/score
 	        if (OVRInput.Get(OVRInput.Button.PrimaryTouchpad))
 	        {
 	            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -69,7 +65,8 @@ public class ScoreManager : MonoBehaviour
 	    {
 	        var referenceTime = DateTime.UtcNow;
 	        var timeSpan = referenceTime - startTime;
-	        upperTextLabelLeft.text = string.Format("{0} points{1}time: {2}:{3}", points, Environment.NewLine, timeSpan.Minutes < 10 ? "0" + timeSpan.Minutes : timeSpan.Minutes.ToString(),
+
+	        upperTextLabelLeft.text = string.Format("Points: {0}{1}Time: {2}:{3}", points, Environment.NewLine, timeSpan.Minutes < 10 ? "0" + timeSpan.Minutes : timeSpan.Minutes.ToString(),
                 timeSpan.Seconds < 10 ? "0" + timeSpan.Seconds : timeSpan.Seconds.ToString());
         }	    
     }
