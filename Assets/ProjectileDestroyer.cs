@@ -1,16 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class ProjectileDestroyer : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+    // Constants
+
+    public const int DefaultMaxAgeInSeconds = 45;
+
+    // Unity fields
+
+    public int MaxAgeInSeconds = DefaultMaxAgeInSeconds;
+
+    // Fields
+
+    private DateTime _startDate;
+
+    // Methods
+    
+	void Start ()
+	{
+	    _startDate = DateTime.UtcNow;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+	{
+	    var age = DateTime.UtcNow - _startDate;
+	    if (age.TotalSeconds > MaxAgeInSeconds)
+	    {
+	        Destroy(this);
+	    }
 	}
 }

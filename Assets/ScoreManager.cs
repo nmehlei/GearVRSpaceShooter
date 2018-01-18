@@ -43,23 +43,31 @@ public class ScoreManager : MonoBehaviour
     {
         startTime = DateTime.UtcNow;
     }
-	
+
+    private bool restarted = false;
 	void FixedUpdate ()
 	{
 	    if (_gameEnded)
 	    {
 	        OVRInput.FixedUpdate();
 
-            upperTextLabelLeft.text = string.Format("Press touchpad to restart{0}Your time was: {1}:{2}", Environment.NewLine,
-                _gameEndTimeSpan.Minutes < 10 ? "0" + _gameEndTimeSpan.Minutes : _gameEndTimeSpan.Minutes.ToString(),
-                _gameEndTimeSpan.Seconds < 10 ? "0" + _gameEndTimeSpan.Seconds : _gameEndTimeSpan.Seconds.ToString());
-
-            // wait for user input so user has time to read his/her time/score
-	        if (OVRInput.Get(OVRInput.Button.PrimaryTouchpad))
+	        if (!restarted)
 	        {
-	            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-	            SubGoalManager.GetInstance().Reset();
-	        }
+	            upperTextLabelLeft.text = string.Format("Press trigger to restart{0}Your time was: {1}:{2}", Environment.NewLine,
+	                _gameEndTimeSpan.Minutes < 10 ? "0" + _gameEndTimeSpan.Minutes : _gameEndTimeSpan.Minutes.ToString(),
+	                _gameEndTimeSpan.Seconds < 10 ? "0" + _gameEndTimeSpan.Seconds : _gameEndTimeSpan.Seconds.ToString());
+
+	            // wait for user input so user has time to read his/her time/score
+	            if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
+	            {
+	                upperTextLabelLeft.text = "restarting";
+                    //var levelManager = LevelManager.GetInstance();
+                    //levelManager.ResetLevel();
+	                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	                SubGoalManager.GetInstance().Reset();
+                    restarted = true;
+	            }
+            }
 	    }
 	    else
 	    {

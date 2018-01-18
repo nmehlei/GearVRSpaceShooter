@@ -6,16 +6,22 @@ public class ShipRotateController : MonoBehaviour
 {
     // Constants
 
-    private static readonly float DEFAULT_ROTATION_SPEED = 1.5f;
+    public static readonly float DefaultBaseMovementSpeed = 60;
+    public static readonly float DEFAULT_ROTATION_SPEED = 1.5f;
 
-    private const float SpeedFactorStep = 0.005f;
+    private const float Acceleration = 0.015f;
 
     // Unity fields
 
     [Header("Speed")]
+    public float BaseMovementSpeed = DefaultBaseMovementSpeed;
     public float yawRotationSpeed = DEFAULT_ROTATION_SPEED;
     public float pitchRotationSpeed = DEFAULT_ROTATION_SPEED;
     public float rollRotationSpeed = DEFAULT_ROTATION_SPEED;
+
+    [Header("Speed Steps")]
+    public int ForwardSpeedSteps = 8;
+    public int BackwardSpeedSteps = 4;
 
     [Header("Deadzone")]
     [Range(0f, 0.99f)]
@@ -23,9 +29,9 @@ public class ShipRotateController : MonoBehaviour
     [Range(0.01f, 1f)]
     public float outerDeadzoneValue = 0.25f;
 
-    [Header("Text-Output elements")]
+    //[Header("Text-Output elements")]
 
-    public Text moveTextLabel;
+    //public Text moveTextLabel;
     //public Text moveTextLabel2;
 
     //public Text upperTextLabelRight;
@@ -41,17 +47,16 @@ public class ShipRotateController : MonoBehaviour
     public Transform ZUpTransform;
     public Transform ZDownTransform;
 
-    //[Header("Joystick-Output elements")]
-    //public Transform joystockTransform;
+    public Transform CurrentSpeedTransform;
+    public Transform TargetSpeedTransform;
+    public float ScaleValuePerSpeedStep;
 
     // Fields
     
+    //private bool movementEnabled = true;
+    //private float lastMovementEnabledChange = 0;
     private float currentSpeedFactor = 0;
-
-    //private float lastControllerFix = 0;
-
-    private bool movementEnabled = false;
-    private float lastMovementEnabledChange = 0;
+    private float targetSpeedFactor = 0;
 
     // Methods
 
@@ -62,7 +67,7 @@ public class ShipRotateController : MonoBehaviour
         var rotation = GetRotationQuaternion();        
 
         // movement can be disabled to relax hand and give the user the option of letting the controller go w/o affecting flight
-        if (movementEnabled)
+        if (true) //movementEnabled
         {
             var yawFactor = CalculateYawFactor(rotation);
             var pitchFactor = CalculatePitchFactor(rotation);
@@ -114,77 +119,82 @@ public class ShipRotateController : MonoBehaviour
                 }
             }
 
-            // TODO: remove debug
-            //upperTextLabelRight.text = string.Format("X: {0:N2}{1}Y: {2:N2}{3}Z: {4:N2}", rotation.x, Environment.NewLine,
-            //        rotation.y, Environment.NewLine, rotation.z);
-
-            //if (joystockTransform != null)
+            //if (OVRInput.Get(OVRInput.Button.Back) && Time.time - lastMovementEnabledChange > 0.5f)
             //{
-            //    joystockTransform.eulerAngles = new Vector3(yawFactor, pitchFactor, rollFactor);
+                //movementEnabled = false;
+                //lastMovementEnabledChange = Time.time;
             //}
-            
-            if (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && Time.time - lastMovementEnabledChange > 0.5f)
-            {
-                movementEnabled = false;
-                lastMovementEnabledChange = Time.time;
-            }
         }
-        else
-        {
-            //upperTextLabelRight.text = string.Format("X: -{0}Y: -{1}Z: -", Environment.NewLine, Environment.NewLine);
+        //else
+        //{
+            //if (OVRInput.Get(OVRInput.Button.Back) && Time.time - lastMovementEnabledChange > 0.5f)
+            //{
+                //movementEnabled = true;
+                //lastMovementEnabledChange = Time.time;
+            //}
+        //}
 
-            if (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && Time.time - lastMovementEnabledChange > 0.5f)
-            {
-                //Debug.Log("enabled movement");
-                movementEnabled = true;
-                lastMovementEnabledChange = Time.time;
-            }
-        }
-
-        float targetSpeedFactor = 0;
+        //float targetSpeedFactor = 0;
 
         if (OVRInput.Get(OVRInput.Touch.PrimaryTouchpad))
-	    {
-	        var speedTouchPosition = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+        {
+            int stepSum = ForwardSpeedSteps + BackwardSpeedSteps;
+            var speedTouchPosition = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
 	        //targetSpeedFactor = speedTouchPosition.x < 0.4f ? speedTouchPosition.y : 0;
-	        targetSpeedFactor = speedTouchPosition.y + 0.5f;
+            // + 1 to only have positive values, divided by 2 to have range 0 to 1
+	        targetSpeedFactor = (speedTouchPosition.y + 1) / 2;
+	        targetSpeedFactor = targetSpeedFactor * stepSum;
+	        targetSpeedFactor -= BackwardSpeedSteps;
 
-	        currentSpeedFactor = UpdateSpeedFactor(currentSpeedFactor, targetSpeedFactor);
+	        //currentSpeedFactor = UpdateSpeedFactor(currentSpeedFactor, targetSpeedFactor);
 
-	        moveTextLabel.text = string.Format("moving-X: {0:N2}{1}moving-Y: {2:N2}{3}targetSF: {4:N2}{5}speedFactor: {6:N2}", 
-                speedTouchPosition.x, Environment.NewLine, speedTouchPosition.y, Environment.NewLine, targetSpeedFactor,
-                Environment.NewLine, currentSpeedFactor);
+	        //moveTextLabel.text = string.Format("moving-X: {0:N2}{1}moving-Y: {2:N2}{3}targetSF: {4:N2}{5}speedFactor: {6:N2}", 
+            //    speedTouchPosition.x, Environment.NewLine, speedTouchPosition.y, Environment.NewLine, targetSpeedFactor,
+            //    Environment.NewLine, currentSpeedFactor);
         }
 	    else
         {
-            currentSpeedFactor = UpdateSpeedFactor(currentSpeedFactor, targetSpeedFactor);
-            
-	        moveTextLabel.text = string.Format("moving-X: n/a{0}moving-Y: n/a{1}targetSF: {2:N2}{3}speedFactor: {4:N2}",
-	            Environment.NewLine, Environment.NewLine, targetSpeedFactor, Environment.NewLine, currentSpeedFactor);
+            //moveTextLabel.text = string.Format("moving-X: n/a{0}moving-Y: n/a{1}targetSF: {2:N2}{3}speedFactor: {4:N2}",
+            //    Environment.NewLine, Environment.NewLine, targetSpeedFactor, Environment.NewLine, currentSpeedFactor);
         }
 
-        ApplyMovementTranslation(transform);
+        currentSpeedFactor = UpdateSpeedFactor(currentSpeedFactor, targetSpeedFactor);
+
+        if (CurrentSpeedTransform != null)
+        {
+            CurrentSpeedTransform.localScale = new Vector3(1, currentSpeedFactor * ScaleValuePerSpeedStep, 1);
+        }
+        if (TargetSpeedTransform != null)
+        {
+            TargetSpeedTransform.localScale = new Vector3(1, targetSpeedFactor * ScaleValuePerSpeedStep, 1);
+        }
+
+        ApplyMovementTranslation(transform, BaseMovementSpeed);
     }
 
     private Quaternion GetRotationQuaternion()
     {
         // get active controller, either left- or right-hand based
-        var activeController = OVRInput.GetActiveController();
+        //var activeController = OVRInput.GetActiveController();
 
         // get gyroscope instead of accelerometer values because more precise AND based on orientation, not movement.
         // This is important because values have origin in calibrated null value (holding position?)
-        return OVRInput.GetLocalControllerRotation(activeController);
+        //return OVRInput.GetLocalControllerRotation(activeController);
         //var rotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTrackedRemote);
+        return OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTrackedRemote);
     }
 
     private float CalculateAdjustedRotationFactor(float factor)
     {
+        // factor in inner and outer deadzones, inner to correct for "jitter" and outer to handle out-of-bounds input ranges
+
         if (factor > -innerDeadzoneValue && factor < innerDeadzoneValue)
             return 0;
         if (factor < -outerDeadzoneValue)
             return -outerDeadzoneValue;
         if (factor > outerDeadzoneValue)
             return outerDeadzoneValue;
+
         return factor;
     }
 
@@ -207,17 +217,17 @@ public class ShipRotateController : MonoBehaviour
     {
         if (targetSpeed > previousSpeed)
         {
-            return previousSpeed + SpeedFactorStep;
+            return previousSpeed + Acceleration;
         }
         if (targetSpeed < previousSpeed)
         {
-            return previousSpeed - SpeedFactorStep;
+            return previousSpeed - Acceleration;
         }
         return previousSpeed;
     }
 
-    private void ApplyMovementTranslation(Transform transform)
+    private void ApplyMovementTranslation(Transform transform, float baseMovementSpeed)
     {
-        transform.position += transform.forward * currentSpeedFactor * 60 * Time.deltaTime;
+        transform.position += transform.forward * currentSpeedFactor * baseMovementSpeed * Time.deltaTime;
     }
 }

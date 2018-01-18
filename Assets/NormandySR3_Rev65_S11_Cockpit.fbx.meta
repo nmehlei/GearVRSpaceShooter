@@ -1,0 +1,262 @@
+fileFormatVersion: 2
+guid: 0645ac899d9c49842afc3edd351904ed
+timeCreated: 1516289606
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Chair
+    100002: Cube
+    100004: Engine_Label
+    100006: Fins
+    100008: Front_Fins
+    100010: Head_Fin
+    100012: Inner_Engine
+    100014: "Inner_Engine_Hull_W\xFCrfel"
+    100016: Inner_Engine_Platform
+    100018: Labels
+    100020: Loft
+    100022: Loft_2
+    100024: Loft_3
+    100026: Loft_4
+    100028: Loft_5
+    100030: Loft_6
+    100032: Loft_7
+    100034: Loft_8
+    100036: Loft_NURBS_1
+    100038: Loft_NURBS_1_2
+    100040: Loft_NURBS_1_3
+    100042: Loft_NURBS_1_4
+    100044: Normandy
+    100046: //RootNode
+    100048: Outer_Engine
+    100050: Outer_Engine_2
+    100052: Outer_Engine_Platform
+    100054: Primary_Hull
+    100056: Primary_Hull_1
+    100058: Primary_Hull_2
+    100060: Scene_Items
+    100062: Secondary_Hull
+    100064: Secondary_Hull_2
+    100066: Ship_Identifier_Label
+    100068: Ship_Number_Label
+    100070: Symmetrie_Objekt_2
+    100072: Symmetry
+    100074: Symmetry_2
+    100076: Tail_Fins
+    100078: Trash_Bin
+    100080: Wing
+    100082: Wing_Connector
+    100084: Wing_Connector_2
+    100086: Wing_Symmetrier
+    100088: "W\xFCrfel"
+    100090: "W\xFCrfel_1"
+    100092: "W\xFCrfel_2"
+    100094: "W\xFCrfel_2_2"
+    100096: Zylinder
+    400000: Chair
+    400002: Cube
+    400004: Engine_Label
+    400006: Fins
+    400008: Front_Fins
+    400010: Head_Fin
+    400012: Inner_Engine
+    400014: "Inner_Engine_Hull_W\xFCrfel"
+    400016: Inner_Engine_Platform
+    400018: Labels
+    400020: Loft
+    400022: Loft_2
+    400024: Loft_3
+    400026: Loft_4
+    400028: Loft_5
+    400030: Loft_6
+    400032: Loft_7
+    400034: Loft_8
+    400036: Loft_NURBS_1
+    400038: Loft_NURBS_1_2
+    400040: Loft_NURBS_1_3
+    400042: Loft_NURBS_1_4
+    400044: Normandy
+    400046: //RootNode
+    400048: Outer_Engine
+    400050: Outer_Engine_2
+    400052: Outer_Engine_Platform
+    400054: Primary_Hull
+    400056: Primary_Hull_1
+    400058: Primary_Hull_2
+    400060: Scene_Items
+    400062: Secondary_Hull
+    400064: Secondary_Hull_2
+    400066: Ship_Identifier_Label
+    400068: Ship_Number_Label
+    400070: Symmetrie_Objekt_2
+    400072: Symmetry
+    400074: Symmetry_2
+    400076: Tail_Fins
+    400078: Trash_Bin
+    400080: Wing
+    400082: Wing_Connector
+    400084: Wing_Connector_2
+    400086: Wing_Symmetrier
+    400088: "W\xFCrfel"
+    400090: "W\xFCrfel_1"
+    400092: "W\xFCrfel_2"
+    400094: "W\xFCrfel_2_2"
+    400096: Zylinder
+    2100000: Light Hull
+    2100002: Mat.6
+    2100004: Dark Hull
+    2100006: Mat.4
+    2100008: Light Text
+    2100010: Text
+    2100012: Black Hull
+    2100014: Highlight
+    2100016: No Name
+    2300000: Chair
+    2300002: Cube
+    2300004: Head_Fin
+    2300006: "Inner_Engine_Hull_W\xFCrfel"
+    2300008: Inner_Engine_Platform
+    2300010: Loft_2
+    2300012: Loft_4
+    2300014: Loft_6
+    2300016: Loft_8
+    2300018: Loft_NURBS_1_2
+    2300020: Loft_NURBS_1_4
+    2300022: Outer_Engine_2
+    2300024: Outer_Engine_Platform
+    2300026: Primary_Hull
+    2300028: Primary_Hull_1
+    2300030: Primary_Hull_2
+    2300032: Secondary_Hull_2
+    2300034: "W\xFCrfel"
+    2300036: "W\xFCrfel_1"
+    2300038: "W\xFCrfel_2"
+    2300040: "W\xFCrfel_2_2"
+    2300042: Zylinder
+    3300000: Chair
+    3300002: Cube
+    3300004: Head_Fin
+    3300006: "Inner_Engine_Hull_W\xFCrfel"
+    3300008: Inner_Engine_Platform
+    3300010: Loft_2
+    3300012: Loft_4
+    3300014: Loft_6
+    3300016: Loft_8
+    3300018: Loft_NURBS_1_2
+    3300020: Loft_NURBS_1_4
+    3300022: Outer_Engine_2
+    3300024: Outer_Engine_Platform
+    3300026: Primary_Hull
+    3300028: Primary_Hull_1
+    3300030: Primary_Hull_2
+    3300032: Secondary_Hull_2
+    3300034: "W\xFCrfel"
+    3300036: "W\xFCrfel_1"
+    3300038: "W\xFCrfel_2"
+    3300040: "W\xFCrfel_2_2"
+    3300042: Zylinder
+    4300000: Chair
+    4300002: Cube
+    4300004: Primary_Hull_1
+    4300006: Primary_Hull
+    4300008: Loft_2
+    4300010: Loft_4
+    4300012: Loft_NURBS_1_2
+    4300014: Loft_6
+    4300016: Loft_8
+    4300018: Loft_NURBS_1_4
+    4300020: "W\xFCrfel"
+    4300022: Head_Fin
+    4300024: "W\xFCrfel_1"
+    4300026: Primary_Hull_2
+    4300028: "W\xFCrfel_2"
+    4300030: Secondary_Hull_2
+    4300032: Zylinder
+    4300034: "W\xFCrfel_2_2"
+    4300036: Inner_Engine_Platform
+    4300038: "Inner_Engine_Hull_W\xFCrfel"
+    4300040: Outer_Engine_Platform
+    4300042: Outer_Engine_2
+    7400000: CINEMA_4D_Main
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

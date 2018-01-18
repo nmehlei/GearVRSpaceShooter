@@ -18,12 +18,18 @@ public class ShipCollisionHandler : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
+        /*Debug.LogWarning(collision. .tag);
         if (collision.gameObject.tag == "Projectile")
         {
             Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider);
             //Physics.IgnoreCollision(collision.gameObject.col, collision.collider);
             //Physics.IgnoreCollision(theobjectToIgnore.collider, collider);
         }
+        else if (collision.gameObject.tag == "Asteroid")
+        {
+            var levelManager = LevelManager.GetInstance();
+            levelManager.ResetLevel();
+        }*/
     }
 
     /*void OnTriggerEnter(Collider other)

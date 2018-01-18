@@ -16,24 +16,7 @@ public class AsteroidDestructionHandler : MonoBehaviour {
     [Tooltip("a single projectile hit will count as 1 lost health point.")]
     public int Health = DEFAULT_HEALTH;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    /*void OnCollisionEnter(Collision collisionInfo)
-    {
-        if (collisionInfo.gameObject.tag == "Projectile")
-        {
-            Destroy(this);
-            Destroy(collisionInfo.gameObject);
-        }
-    }*/
+    // Methods
 
     void OnTriggerEnter(Collider other)
     {
