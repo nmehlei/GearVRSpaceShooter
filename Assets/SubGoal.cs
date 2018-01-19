@@ -7,10 +7,13 @@ public class SubGoal : MonoBehaviour
 {
     // Unity Fields
 
+    [Tooltip("The incrementing number that indicates the order the SubGoals shall be reached.")]
     public int subGoalNumber;
 
     [Header("Materials")]
+    [Tooltip("Material that is being used while SubGoal is in inactive state.")]
     public Material InactiveMaterial;
+    [Tooltip("Material that is being used while SubGoal is in active state.")]
     public Material ActiveMaterial;
 
     // Fields
@@ -24,13 +27,13 @@ public class SubGoal : MonoBehaviour
 	    var subGoalManager = SubGoalManager.GetInstance();
 	    var isActiveNow = subGoalManager.NextSubGoalNumber == subGoalNumber;
 
+        // if active state changed ..
 	    if (isActive != isActiveNow)
 	    {
-	        Debug.Log("SubGoal-isActive changed!");
+            // .. switch out material
             var meshRenderer = GetComponentInChildren<MeshRenderer>();
             if (isActiveNow)
             {
-                Debug.Log("New SubGoal is now active!");
                 meshRenderer.material = ActiveMaterial;
             }
 	        else

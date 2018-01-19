@@ -26,6 +26,9 @@ namespace Assets
             return _instance;
         }
 
+        /// <summary>
+        /// Basically reset the whole game, including object positions and states aswell as accumulated points and timers
+        /// </summary>
         public void ResetLevel()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

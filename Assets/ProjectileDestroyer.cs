@@ -9,6 +9,7 @@ public class ProjectileDestroyer : MonoBehaviour {
 
     // Unity fields
 
+    [Tooltip("Seconds after which the projectile vanishes.")]
     public int MaxAgeInSeconds = DefaultMaxAgeInSeconds;
 
     // Fields

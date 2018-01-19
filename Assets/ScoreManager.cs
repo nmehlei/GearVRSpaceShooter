@@ -6,16 +6,22 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    private DateTime startTime;
+    // Unity Properties
 
     public Text upperTextLabelLeft;
     public int points = 0;
     //public int nextSubGoalNumber = 1;
     public int maxSubGoalNumber = 10;
 
+    // Fields
+
+    private DateTime startTime;    
     private bool _gameEnded;
     private TimeSpan _gameEndTimeSpan;
-    
+    private bool _restarted = false;
+
+    // Methods
+
     void OnTriggerEnter(Collider other)
     {
         var subGoal = other.gameObject.GetComponent<SubGoal>();
@@ -44,14 +50,13 @@ public class ScoreManager : MonoBehaviour
         startTime = DateTime.UtcNow;
     }
 
-    private bool restarted = false;
 	void FixedUpdate ()
 	{
 	    OVRInput.FixedUpdate();
 
         if (_gameEnded)
 	    {
-	        if (!restarted)
+	        if (!_restarted)
 	        {
 	            upperTextLabelLeft.text = string.Format("Press trigger to restart{0}Your time was: {1}:{2}", Environment.NewLine,
 	                _gameEndTimeSpan.Minutes < 10 ? "0" + _gameEndTimeSpan.Minutes : _gameEndTimeSpan.Minutes.ToString(),
@@ -61,11 +66,8 @@ public class ScoreManager : MonoBehaviour
 	            if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
 	            {
 	                upperTextLabelLeft.text = "restarting";
-                    //var levelManager = LevelManager.GetInstance();
-                    //levelManager.ResetLevel();
-	                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-	                SubGoalManager.GetInstance().Reset();
-                    restarted = true;
+	                ResetLevel();
+                    _restarted = true;
 	            }
             }
 	    }
@@ -79,9 +81,21 @@ public class ScoreManager : MonoBehaviour
 
 	        if (OVRInput.GetUp(OVRInput.Button.Back))
 	        {
-	            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-	            SubGoalManager.GetInstance().Reset();
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                //SubGoalManager.GetInstance().Reset();
+	            ResetLevel();
             }
         }	    
+    }
+
+    /// <summary>
+    /// Basically reset the whole game, including object positions and states aswell as accumulated points and timers
+    /// </summary>
+    private void ResetLevel()
+    {
+        //var levelManager = LevelManager.GetInstance();
+        //levelManager.ResetLevel();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SubGoalManager.GetInstance().Reset();
     }
 }

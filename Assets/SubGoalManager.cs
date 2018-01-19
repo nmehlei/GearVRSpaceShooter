@@ -1,19 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
 
 namespace Assets
 {
     public class SubGoalManager
     {
+        // Constructors
+
         private SubGoalManager()
         {
             Reset();
         }
 
+        // Fields
+
         private static SubGoalManager _instance;
+
+        // Properties
+
+        public int NextSubGoalNumber { get; private set; }
+
+        // Methods
 
         public static SubGoalManager GetInstance()
         {
@@ -21,9 +27,7 @@ namespace Assets
                 _instance = new SubGoalManager();
 
             return _instance;
-        }
-
-        public int NextSubGoalNumber { get; private set; }
+        }        
 
         public void Reset()
         {
