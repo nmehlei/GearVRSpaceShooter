@@ -47,10 +47,10 @@ public class ScoreManager : MonoBehaviour
     private bool restarted = false;
 	void FixedUpdate ()
 	{
-	    if (_gameEnded)
-	    {
-	        OVRInput.FixedUpdate();
+	    OVRInput.FixedUpdate();
 
+        if (_gameEnded)
+	    {
 	        if (!restarted)
 	        {
 	            upperTextLabelLeft.text = string.Format("Press trigger to restart{0}Your time was: {1}:{2}", Environment.NewLine,
@@ -76,6 +76,12 @@ public class ScoreManager : MonoBehaviour
 
 	        upperTextLabelLeft.text = string.Format("Points: {0}{1}Time: {2}:{3}", points, Environment.NewLine, timeSpan.Minutes < 10 ? "0" + timeSpan.Minutes : timeSpan.Minutes.ToString(),
                 timeSpan.Seconds < 10 ? "0" + timeSpan.Seconds : timeSpan.Seconds.ToString());
+
+	        if (OVRInput.GetUp(OVRInput.Button.Back))
+	        {
+	            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	            SubGoalManager.GetInstance().Reset();
+            }
         }	    
     }
 }

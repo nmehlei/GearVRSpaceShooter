@@ -6,13 +6,16 @@ public class WeaponsArrayController : MonoBehaviour {
 
     // Units fields
 
-    public GameObject shot;
+    [Header("Properties")]
+    public float fireRate = 0.5f;
 
+    [Header("Templates")]
+    public GameObject shot;    
+
+    [Header("Spawn points")]
     public Transform leftShotSpawnTransform;
 
     public Transform rightShotSpawnTransform;
-
-    public float fireRate = 0.5f;
 
     // Fields
 

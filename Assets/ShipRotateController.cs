@@ -8,13 +8,15 @@ public class ShipRotateController : MonoBehaviour
 
     public static readonly float DefaultBaseMovementSpeed = 60;
     public static readonly float DEFAULT_ROTATION_SPEED = 1.5f;
+    public static readonly float DefaultAcceleration = 0.015f;
 
-    private const float Acceleration = 0.015f;
+    //private const float Acceleration = 0.015f;
 
     // Unity fields
 
     [Header("Speed")]
     public float BaseMovementSpeed = DefaultBaseMovementSpeed;
+    public float Acceleration = DefaultAcceleration;
     public float yawRotationSpeed = DEFAULT_ROTATION_SPEED;
     public float pitchRotationSpeed = DEFAULT_ROTATION_SPEED;
     public float rollRotationSpeed = DEFAULT_ROTATION_SPEED;
@@ -36,7 +38,7 @@ public class ShipRotateController : MonoBehaviour
 
     //public Text upperTextLabelRight;
 
-    [Header("Slider-Output elements")]
+    [Header("Slider properties")]
     
     public Transform XUpTransform;
     public Transform XDownTransform;
