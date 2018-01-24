@@ -12,38 +12,61 @@ public class ShipRotateController : MonoBehaviour
     // Unity fields
 
     [Header("Speed")]
+    [Tooltip("")]
     public float BaseMovementSpeed = DefaultBaseMovementSpeed;
+    [Tooltip("")]
     public float Acceleration = DefaultAcceleration;
+    [Tooltip("")]
     public float YawRotationSpeed = DefaultRotationSpeed;
+    [Tooltip("")]
     public float PitchRotationSpeed = DefaultRotationSpeed;
+    [Tooltip("")]
     public float RollRotationSpeed = DefaultRotationSpeed;
 
     [Header("Speed Steps")]
+    [Tooltip("")]
     public int ForwardSpeedSteps = 8;
+    [Tooltip("")]
     public int BackwardSpeedSteps = 4;
 
     [Header("Deadzone")]
     [Range(0f, 0.99f)]
+    [Tooltip("")]
     public float InnerDeadzoneValue = 0.01f;
     [Range(0.01f, 1f)]
+    [Tooltip("")]
     public float OuterDeadzoneValue = 0.25f;
     
     [Header("Slider properties")]
-    
+
+    [Tooltip("")]
     public Transform XUpTransform;
+    [Tooltip("")]
     public Transform XDownTransform;
 
+    [Tooltip("")]
     public Transform YUpTransform;
+    [Tooltip("")]
     public Transform YDownTransform;
 
+    [Tooltip("")]
     public Transform ZUpTransform;
+    [Tooltip("")]
     public Transform ZDownTransform;
 
+    [Tooltip("")]
     public Transform CurrentSpeedTransform;
+    [Tooltip("")]
     public Transform TargetSpeedTransform;
+    [Tooltip("")]
     public float ScaleValuePerSpeedStep;
 
+    [Tooltip("")]
     public Transform MiniShipTransform;
+
+    [Header("Misc")]
+    [Tooltip("")]
+    public bool InvertY;
 
     // Fields
     

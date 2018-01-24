@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f18c095b3b72934a8c0054a265b4ec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxAgeInSeconds: 45
 --- !u!114 &114896535105772192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea7af5d9035cc7b429ae943c260fd560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 60
+  speed: 90
 --- !u!136 &136616825021249780
 CapsuleCollider:
   m_ObjectHideFlags: 1

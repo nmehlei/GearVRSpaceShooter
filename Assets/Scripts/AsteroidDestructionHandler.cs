@@ -6,15 +6,12 @@ public class AsteroidDestructionHandler : MonoBehaviour {
 
     // Constants
 
-    public const int DEFAULT_HEALTH = 5;
-
-    //[InspectorComment("asdasdsd foo bar")]
-    //[InspectorNote("asdsd")]
-
-    // Fields
+    public const int DefaultHealth = 5;
+    
+    // Unity Properties
 
     [Tooltip("a single projectile hit will count as 1 lost health point.")]
-    public int Health = DEFAULT_HEALTH;
+    public int Health = DefaultHealth;
 
     // Methods
 
@@ -24,11 +21,14 @@ public class AsteroidDestructionHandler : MonoBehaviour {
         {
             Health--;
 
+            // Destroy the projectile since it hit the asteroid
+            Destroy(other.gameObject);
+
             if (Health == 0)
             {
-                Destroy(gameObject);
-                Destroy(other.gameObject);
-            }            
+                // Destroy the asteroid aswell when its health reached zero
+                Destroy(gameObject);                
+            }
         }
     }
 }
