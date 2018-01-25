@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class ShipRotateController : MonoBehaviour
+public class MovementControlComponent : MonoBehaviour
 {
     // Constants
 
@@ -152,11 +152,6 @@ public class ShipRotateController : MonoBehaviour
             {
                 _movementEnabled = false;
             }
-            //if (OVRInput.Get(OVRInput.Button.Back) && Time.time - lastMovementEnabledChange > 0.5f)
-            //{
-            //movementEnabled = false;
-            //lastMovementEnabledChange = Time.time;
-            //}
         }
         else
         {
@@ -165,15 +160,6 @@ public class ShipRotateController : MonoBehaviour
                 _movementEnabled = true;
             }
         }
-
-        //else
-        //{
-        //if (OVRInput.Get(OVRInput.Button.Back) && Time.time - lastMovementEnabledChange > 0.5f)
-        //{
-        //movementEnabled = true;
-        //lastMovementEnabledChange = Time.time;
-        //}
-        //}
     }
 
     private void HandleSpeed()
@@ -187,17 +173,6 @@ public class ShipRotateController : MonoBehaviour
             _targetSpeedFactor = (speedTouchPosition.y + 1) / 2;
             _targetSpeedFactor = _targetSpeedFactor * stepSum;
             _targetSpeedFactor -= BackwardSpeedSteps;
-
-            //currentSpeedFactor = UpdateSpeedFactor(currentSpeedFactor, targetSpeedFactor);
-
-            //moveTextLabel.text = string.Format("moving-X: {0:N2}{1}moving-Y: {2:N2}{3}targetSF: {4:N2}{5}speedFactor: {6:N2}", 
-            //    speedTouchPosition.x, Environment.NewLine, speedTouchPosition.y, Environment.NewLine, targetSpeedFactor,
-            //    Environment.NewLine, currentSpeedFactor);
-        }
-        else
-        {
-            //moveTextLabel.text = string.Format("moving-X: n/a{0}moving-Y: n/a{1}targetSF: {2:N2}{3}speedFactor: {4:N2}",
-            //    Environment.NewLine, Environment.NewLine, targetSpeedFactor, Environment.NewLine, currentSpeedFactor);
         }
 
         _currentSpeedFactor = UpdateSpeedFactor(_currentSpeedFactor, _targetSpeedFactor);
