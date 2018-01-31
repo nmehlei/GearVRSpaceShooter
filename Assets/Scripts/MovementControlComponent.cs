@@ -140,28 +140,31 @@ public class MovementControlComponent : MonoBehaviour
                 }
             }
 
+            // update the mini ship orientation
             if (MiniShipTransform != null)
             {
-                //var currentRotation = MiniShipTransform.localRotation;
-                //var wantedRotation = currentRotation * Quaternion.AngleAxis(rollFactor * 100, Vector3.forward);
-                //MiniShipTransform.rotation = Quaternion.Slerp(currentRotation, wantedRotation, Time.deltaTime * 5);
                 MiniShipTransform.localRotation = new Quaternion(yawFactor, pitchFactor, rollFactor, 1);
             }
 
+            // check if user requested movement disabling
             if (OVRInput.GetUp(OVRInput.Button.PrimaryTouchpad))
             {
-                _movementEnabled = false;
+                DisableMovement();
             }
         }
         else
         {
+            // check if user requested movement enabling
             if (OVRInput.GetUp(OVRInput.Button.PrimaryTouchpad))
             {
-                _movementEnabled = true;
+                EnableMovement();
             }
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void HandleSpeed()
     {
         if (OVRInput.Get(OVRInput.Touch.PrimaryTouchpad))
@@ -189,6 +192,26 @@ public class MovementControlComponent : MonoBehaviour
         ApplyMovementTranslation(transform, BaseMovementSpeed);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    public void EnableMovement()
+    {
+        _movementEnabled = true;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void DisableMovement()
+    {
+        _movementEnabled = false;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     private Quaternion GetRotationQuaternion()
     {
         // get active controller, either left- or right-hand based
@@ -201,10 +224,13 @@ public class MovementControlComponent : MonoBehaviour
         return OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTrackedRemote);
     }
 
+    /// <summary>
+    /// factor in inner and outer deadzones, inner to correct for "jitter" and outer to handle out-of-bounds input ranges
+    /// </summary>
+    /// <param name="factor">input value that is to be adjusted</param>
+    /// <returns></returns>
     private float CalculateAdjustedRotationFactor(float factor)
     {
-        // factor in inner and outer deadzones, inner to correct for "jitter" and outer to handle out-of-bounds input ranges
-
         if (factor > -InnerDeadzoneValue && factor < InnerDeadzoneValue)
             return 0;
         if (factor < -OuterDeadzoneValue)
@@ -215,21 +241,42 @@ public class MovementControlComponent : MonoBehaviour
         return factor;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="rotation"></param>
+    /// <returns></returns>
     private float CalculateYawFactor(Quaternion rotation)
     {
         return CalculateAdjustedRotationFactor(rotation.x);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="rotation"></param>
+    /// <returns></returns>
     private float CalculatePitchFactor(Quaternion rotation)
     {
         return CalculateAdjustedRotationFactor(rotation.y);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="rotation"></param>
+    /// <returns></returns>
     private float CalculateRollFactor(Quaternion rotation)
     {
         return CalculateAdjustedRotationFactor(rotation.z);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="previousSpeed"></param>
+    /// <param name="targetSpeed"></param>
+    /// <returns></returns>
     private float UpdateSpeedFactor(float previousSpeed, float targetSpeed)
     {
         if (targetSpeed > previousSpeed)
@@ -243,6 +290,11 @@ public class MovementControlComponent : MonoBehaviour
         return previousSpeed;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="transform"></param>
+    /// <param name="baseMovementSpeed"></param>
     private void ApplyMovementTranslation(Transform transform, float baseMovementSpeed)
     {
         transform.position += transform.forward * _currentSpeedFactor * baseMovementSpeed * Time.deltaTime;
