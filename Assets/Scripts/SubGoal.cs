@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Assets;
 using UnityEngine;
 
+/// <summary>
+/// adds sub goal behaviour to a unity object, exchanges material based on state
+/// </summary>
 public class SubGoal : MonoBehaviour
 {
     // Unity Fields
@@ -18,7 +21,7 @@ public class SubGoal : MonoBehaviour
 
     // Fields
 
-    private bool isActive;
+    private bool _isActive;
 
     // Methods
 
@@ -28,7 +31,7 @@ public class SubGoal : MonoBehaviour
 	    var isActiveNow = subGoalManager.NextSubGoalNumber == subGoalNumber;
 
         // if active state changed ..
-	    if (isActive != isActiveNow)
+	    if (_isActive != isActiveNow)
 	    {
             // .. switch out material
             var meshRenderer = GetComponentInChildren<MeshRenderer>();
@@ -41,7 +44,7 @@ public class SubGoal : MonoBehaviour
 	            meshRenderer.material = InactiveMaterial;
             }
 
-	        isActive = isActiveNow;
+	        _isActive = isActiveNow;
 	    }
 	}
 }

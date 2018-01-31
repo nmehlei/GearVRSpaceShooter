@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
+/// <summary>
+/// adds self-destruction behaviour to a projectile after a specified timeout (for obvious performance reasons)
+/// </summary>
 public class ProjectileDestroyer : MonoBehaviour {
 
     // Constants

@@ -1,21 +1,29 @@
 ﻿using System;
 using Assets;
+using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles the current score of the game and resets it if requested
+/// </summary>
 public class ScoreManager : MonoBehaviour
 {
     // Unity Properties
 
-    public Text upperTextLabelLeft;
-    public int points = 0;
-    //public int nextSubGoalNumber = 1;
-    public int maxSubGoalNumber = 10;
+    [Tooltip("Label for displaying current score aswell as tips.")]
+    public Text TextLabel;
+
+    [Tooltip("Current points (or start points at design time). Has to be lower than MaxSubGoalNumber.")]
+    public int Points = 0;
+
+    [Tooltip("Maximal amount of sub goals.")]
+    public int MaxSubGoalNumber = 10;
 
     // Fields
 
-    private DateTime startTime;    
+    private DateTime _startTime;    
     private bool _gameEnded;
     private TimeSpan _gameEndTimeSpan;
     private bool _restarted = false;
@@ -36,14 +44,14 @@ public class ScoreManager : MonoBehaviour
             if (subGoal.subGoalNumber == nextSubGoalNumber)
             {
                 // then switch to the next one
-                points++;
+                Points++;
                 subGoalManager.IncrementSubGoalNumber();
 
                 // if it was the last one, then set flag for game end
-                if (subGoal.subGoalNumber == maxSubGoalNumber)
+                if (subGoal.subGoalNumber == MaxSubGoalNumber)
                 {
                     _gameEnded = true;
-                    _gameEndTimeSpan = DateTime.UtcNow - startTime;
+                    _gameEndTimeSpan = DateTime.UtcNow - _startTime;
                 }
             }
         }        
@@ -51,7 +59,7 @@ public class ScoreManager : MonoBehaviour
     
     void Start ()
     {
-        startTime = DateTime.UtcNow;
+        _startTime = DateTime.UtcNow;
     }
 
 	void FixedUpdate ()
@@ -62,14 +70,13 @@ public class ScoreManager : MonoBehaviour
 	    {
 	        if (!_restarted)
 	        {
-	            upperTextLabelLeft.text = string.Format("Press trigger to restart{0}Your time was: {1}:{2}", Environment.NewLine,
-	                _gameEndTimeSpan.Minutes < 10 ? "0" + _gameEndTimeSpan.Minutes : _gameEndTimeSpan.Minutes.ToString(),
-	                _gameEndTimeSpan.Seconds < 10 ? "0" + _gameEndTimeSpan.Seconds : _gameEndTimeSpan.Seconds.ToString());
+	            TextLabel.text = string.Format("Press trigger to restart{0}Your time was: {1}", Environment.NewLine,
+	                _gameEndTimeSpan.ToCounterTimeString());
 
 	            // wait for user input so user has time to read his/her time/score
 	            if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
 	            {
-	                upperTextLabelLeft.text = "restarting";
+	                TextLabel.text = "restarting";
 	                ResetLevel();
                     _restarted = true;
 	            }
@@ -78,11 +85,11 @@ public class ScoreManager : MonoBehaviour
 	    else
 	    {
 	        var referenceTime = DateTime.UtcNow;
-	        var timeSpan = referenceTime - startTime;
+	        var timeSpan = referenceTime - _startTime;
 
-	        upperTextLabelLeft.text = string.Format("Points: {0}{1}Time: {2}:{3}", points, Environment.NewLine, timeSpan.Minutes < 10 ? "0" + timeSpan.Minutes : timeSpan.Minutes.ToString(),
-                timeSpan.Seconds < 10 ? "0" + timeSpan.Seconds : timeSpan.Seconds.ToString());
+	        TextLabel.text = string.Format("Points: {0}{1}Time: {2}", Points, Environment.NewLine, timeSpan.ToCounterTimeString());
 
+            // resets level as soon as back button was pressed and released
 	        if (OVRInput.GetUp(OVRInput.Button.Back))
 	        {
 	            ResetLevel();

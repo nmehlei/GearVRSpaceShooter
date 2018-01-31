@@ -12,15 +12,15 @@ public class MovementControlComponent : MonoBehaviour
     // Unity fields
 
     [Header("Speed")]
-    [Tooltip("")]
+    [Tooltip("Base reference speed for forward and backward movement, not rotation.")]
     public float BaseMovementSpeed = DefaultBaseMovementSpeed;
-    [Tooltip("")]
+    [Tooltip("Amount of speed that can be gained or lost during one game tick.")]
     public float Acceleration = DefaultAcceleration;
-    [Tooltip("")]
+    [Tooltip("Rotation speed for the Yaw axis.")]
     public float YawRotationSpeed = DefaultRotationSpeed;
-    [Tooltip("")]
+    [Tooltip("Rotation speed for the Pitch axis.")]
     public float PitchRotationSpeed = DefaultRotationSpeed;
-    [Tooltip("")]
+    [Tooltip("Rotation speed for the Roll axis.")]
     public float RollRotationSpeed = DefaultRotationSpeed;
 
     [Header("Speed Steps")]
@@ -65,8 +65,11 @@ public class MovementControlComponent : MonoBehaviour
     public Transform MiniShipTransform;
 
     [Header("Misc")]
-    [Tooltip("")]
+    [Tooltip("Allows to invert the Y axis if preferred.")]
     public bool InvertY;
+
+    [Tooltip("Use right handed controller. Otherwise use left handed.")]
+    public bool UseRightHandedController = true;
 
     // Fields
     
@@ -83,6 +86,9 @@ public class MovementControlComponent : MonoBehaviour
         HandleSpeed();   
     }
 
+    /// <summary>
+    /// calculates current rotational input and updates ship orientation aswell as cockpit UI elements accordingly
+    /// </summary>
     private void HandleRotation()
     {
         // movement can be disabled to relax hand and give the user the option of letting the controller go w/o affecting flight
@@ -94,57 +100,12 @@ public class MovementControlComponent : MonoBehaviour
             var pitchFactor = CalculatePitchFactor(rotation);
             var rollFactor = CalculateRollFactor(rotation);
 
-            // do rotate
+            // do rotate, based on specified rotation speeds
             transform.Rotate(yawFactor * YawRotationSpeed, pitchFactor * PitchRotationSpeed, rollFactor * RollRotationSpeed);
 
-            // update rotation sliders
-            if (YUpTransform != null && YDownTransform != null)
-            {
-                if (yawFactor > 0)
-                {
-                    YUpTransform.localScale = new Vector3(1, yawFactor * 2, 1); //TODO: weird values
-                    YDownTransform.localScale = new Vector3(1, 0, 1);
-                }
-                else
-                {
-                    YUpTransform.localScale = new Vector3(1, 0, 1);
-                    YDownTransform.localScale = new Vector3(1, yawFactor * 2, 1);
-                }
-            }
-
-            if (XUpTransform != null && XDownTransform != null)
-            {
-                if (pitchFactor > 0)
-                {
-                    XUpTransform.localScale = new Vector3(pitchFactor * 2, 1, 1);
-                    XDownTransform.localScale = new Vector3(0, 1, 1);
-                }
-                else
-                {
-                    XUpTransform.localScale = new Vector3(0, 1, 1);
-                    XDownTransform.localScale = new Vector3(pitchFactor * 2, 1, 1);
-                }
-            }
-
-            if (ZUpTransform != null && ZDownTransform != null)
-            {
-                if (rollFactor > 0)
-                {
-                    ZUpTransform.localScale = new Vector3(rollFactor * -2, 1, 1);
-                    ZDownTransform.localScale = new Vector3(0, 1, 1);
-                }
-                else
-                {
-                    ZUpTransform.localScale = new Vector3(0, 1, 1);
-                    ZDownTransform.localScale = new Vector3(rollFactor * -2, 1, 1);
-                }
-            }
-
-            // update the mini ship orientation
-            if (MiniShipTransform != null)
-            {
-                MiniShipTransform.localRotation = new Quaternion(yawFactor, pitchFactor, rollFactor, 1);
-            }
+            // update UI elements inside cockpit
+            UpdateRotationSliders(yawFactor, pitchFactor, rollFactor);
+            UpdateMiniShipHologram(yawFactor, pitchFactor, rollFactor);
 
             // check if user requested movement disabling
             if (OVRInput.GetUp(OVRInput.Button.PrimaryTouchpad))
@@ -165,17 +126,82 @@ public class MovementControlComponent : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
+    /// <param name="yawFactor">current relative yaw factor</param>
+    /// <param name="pitchFactor">current relative pitch factor</param>
+    /// <param name="rollFactor">current relative roll factor</param>
+    private void UpdateRotationSliders(float yawFactor, float pitchFactor, float rollFactor)
+    {
+        // update rotation sliders
+        if (YUpTransform != null && YDownTransform != null)
+        {
+            //if (yawFactor > 0)
+            //{
+                YUpTransform.localScale = new Vector3(1, yawFactor * 2, 1); //TODO: weird values
+                YDownTransform.localScale = new Vector3(1, 0, 1);
+            /*}
+            else
+            {
+                YUpTransform.localScale = new Vector3(1, 0, 1);
+                YDownTransform.localScale = new Vector3(1, yawFactor * 2, 1);
+            }*/
+        }
+
+        if (XUpTransform != null && XDownTransform != null)
+        {
+            //if (pitchFactor > 0)
+            //{
+                XUpTransform.localScale = new Vector3(pitchFactor * 2, 1, 1);
+                XDownTransform.localScale = new Vector3(0, 1, 1);
+            /*}
+            else
+            {
+                XUpTransform.localScale = new Vector3(0, 1, 1);
+                XDownTransform.localScale = new Vector3(pitchFactor * 2, 1, 1);
+            }*/
+        }
+
+        if (ZUpTransform != null && ZDownTransform != null)
+        {
+            //if (rollFactor > 0)
+            //{
+                ZUpTransform.localScale = new Vector3(rollFactor * -2, 1, 1);
+                ZDownTransform.localScale = new Vector3(0, 1, 1);
+            /*}
+            else
+            {
+                ZUpTransform.localScale = new Vector3(0, 1, 1);
+                ZDownTransform.localScale = new Vector3(rollFactor * -2, 1, 1);
+            }*/
+        }
+    }
+
+    /// <summary>
+    /// updates the hologram inside the cockpit which shows the current relative orientation of the input
+    /// </summary>
+    /// <param name="yawFactor">current relative yaw factor</param>
+    /// <param name="pitchFactor">current relative pitch factor</param>
+    /// <param name="rollFactor">current relative roll factor</param>
+    private void UpdateMiniShipHologram(float yawFactor, float pitchFactor, float rollFactor)
+    {        
+        if (MiniShipTransform == null) return;
+
+        // update the mini ship orientation
+        MiniShipTransform.localRotation = new Quaternion(yawFactor, pitchFactor, rollFactor, 1);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
     private void HandleSpeed()
     {
         if (OVRInput.Get(OVRInput.Touch.PrimaryTouchpad))
         {
             int stepSum = ForwardSpeedSteps + BackwardSpeedSteps;
             var speedTouchPosition = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
-            //targetSpeedFactor = speedTouchPosition.x < 0.4f ? speedTouchPosition.y : 0;
             // + 1 to only have positive values, divided by 2 to have range 0 to 1
             _targetSpeedFactor = (speedTouchPosition.y + 1) / 2;
             _targetSpeedFactor = _targetSpeedFactor * stepSum;
-            _targetSpeedFactor -= BackwardSpeedSteps;
+            _targetSpeedFactor -= BackwardSpeedSteps; //TODO wat
         }
 
         _currentSpeedFactor = UpdateSpeedFactor(_currentSpeedFactor, _targetSpeedFactor);
@@ -193,7 +219,7 @@ public class MovementControlComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Enables movement, refactored out for easier changes
     /// </summary>
     public void EnableMovement()
     {
@@ -201,7 +227,7 @@ public class MovementControlComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Disables movement, refactored out for easier changes
     /// </summary>
     public void DisableMovement()
     {
@@ -214,14 +240,12 @@ public class MovementControlComponent : MonoBehaviour
     /// <returns></returns>
     private Quaternion GetRotationQuaternion()
     {
-        // get active controller, either left- or right-hand based
-        //var activeController = OVRInput.GetActiveController();
+        // get active controller
+        var controller = UseRightHandedController ? OVRInput.Controller.RTrackedRemote : OVRInput.Controller.LTrackedRemote;
 
         // get gyroscope instead of accelerometer values because more precise AND based on orientation, not movement.
-        // This is important because values have origin in calibrated null value (holding position?)
-        //return OVRInput.GetLocalControllerRotation(activeController);
-        //var rotation = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTrackedRemote);
-        return OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTrackedRemote);
+        // This is important because values have origin in calibrated null value (as in, the holding position)
+        return OVRInput.GetLocalControllerRotation(controller);
     }
 
     /// <summary>

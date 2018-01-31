@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// adds destruction behaviour to an asteroid, so it can be destroyed by weapons fire (= projectiles)
+/// </summary>
 public class AsteroidDestructionHandler : MonoBehaviour {
 
     // Constants

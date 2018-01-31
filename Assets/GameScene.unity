@@ -3540,9 +3540,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab689ad3b7e21a047be1c6e647ffe771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upperTextLabelLeft: {fileID: 280427421}
-  points: 0
-  maxSubGoalNumber: 14
+  TextLabel: {fileID: 280427421}
+  Points: 0
+  MaxSubGoalNumber: 14
 --- !u!65 &1458084400
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -2,6 +2,9 @@
 
 namespace Assets
 {
+    /// <summary>
+    /// class that manages the current sub goal counter as a singleton instance
+    /// </summary>
     public class SubGoalManager
     {
         // Constructors
@@ -30,7 +33,7 @@ namespace Assets
         }        
 
         /// <summary>
-        /// 
+        /// Resets the current sub goal number to start value
         /// </summary>
         public void Reset()
         {
@@ -38,7 +41,7 @@ namespace Assets
         }
 
         /// <summary>
-        /// 
+        /// Allows to increment the current sub goal number from outside
         /// </summary>
         public void IncrementSubGoalNumber()
         {
