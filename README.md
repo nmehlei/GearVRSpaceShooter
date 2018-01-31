@@ -2,22 +2,47 @@
 
 ## Description
 
-GearVRSpaceShooter is a mobile-oriented VR-based Science Fiction Space Shooter (yes I am awesome at naming stuff) that uses a gyroscope-based controller to emulate a joystick as input medium.
+GearVRSpaceShooter is a mobile-oriented 3D VR-based Science Fiction Space Shooter (yes I am awesome at naming stuff) that uses a gyroscope-based controller to emulate a joystick as input medium. It was implemented with Unity as well as the Oculus SDK.
 
-It was developed in the context of an academic exercise to show an implementation of realtime interactive input handling.
+The project idea had it's origin in the dire need to have the most immersive flight input method in a world where there are no (or very few) joystick-like input methods available for mobile devices. It was developed in the context of an academic exercise to showcase a component implementation of realtime interactive input handling.
 
 Though there is, as of now, no further development planned, I am open to anyone who wants to contribute in some way.
 
 ## Usage
+
+### Requirements
 
 To properly run the game, one needs:
 * Samsung Gear VR HMD
 * Samsung Gear VR Controller
 * Compatible Smartphone (test device was a Samsung Galaxy S7)
 
+### Setup / Install
+
+1. Install Oculus on your mobile device
+2. Activate ADB on your mobile device
+
+   If you need to upload the game via WiFi, use *adb tcpip 5555* and *adb connect [your-ip]:5555* to connect to your mobile device while it is plugged in your pc, then disconnect it afterwards.
+
+3. Clone the project to your development computer
+4. Open the project in Unity
+5. Click *Build & Run*
+6. Enjoy
+7. Send me your high score
+
+### Controls
+
+...
+
+### Goal
+
+Fly through all (14) rings in the lowest possible time. Don't fly too fast or you'll overshoot and very likely have a veeery bad score.
+
 ## Component information
 
-The main component inside the source code is the *MovementControlComponent*. It uses the Gear VR Controller input data to extract rotational data aswell as touchpad touch and click data to control a player object (like a space ship).
+The main component inside the source code is the *MovementControlComponent*. It uses the Gear VR Controller input data to extract rotational data as well as touchpad touch and click data to control a player object (like a space ship).
+
+It can easily be used for other projects, as long as the Oculus SDK is included as well. During development, there were curious things that happened with Oculus' calibration, so it is adviced to use the newest available SDK version.
 
 ## Additional files
 
@@ -34,4 +59,3 @@ The source code includes several unit test classes that allow testing of all imp
 ## License
 
 [MIT License](/LICENSE)
- 
