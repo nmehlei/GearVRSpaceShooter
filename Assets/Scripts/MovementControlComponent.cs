@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.MovementControl;
 using UnityEngine;
 
 public class MovementControlComponent : MonoBehaviour
@@ -36,7 +37,10 @@ public class MovementControlComponent : MonoBehaviour
     [Range(0.01f, 1f)]
     [Tooltip("")]
     public float OuterDeadzoneValue = 0.25f;
-    
+
+    [Tooltip("")]
+    public DeadzoneHandlingStyle DeadzoneHandling;
+
     [Header("Slider properties")]
 
     [Tooltip("")]
@@ -53,6 +57,9 @@ public class MovementControlComponent : MonoBehaviour
     public Transform ZUpTransform;
     [Tooltip("")]
     public Transform ZDownTransform;
+
+    [Tooltip("")]
+    public float AxisTransformScaleMax;
 
     [Tooltip("")]
     public Transform CurrentSpeedTransform;
@@ -76,10 +83,26 @@ public class MovementControlComponent : MonoBehaviour
     private bool _movementEnabled = true;
     private float _currentSpeedFactor = 0;
     private float _targetSpeedFactor = 0;
+    private DeadzoneHandler _deadZoneHandler;
 
     // Methods
 
-    void FixedUpdate () {
+    void Start()
+    {
+        // Initialize dead zone handling
+        switch (DeadzoneHandling)
+        {
+            case DeadzoneHandlingStyle.Flexible:
+                _deadZoneHandler = new FlexibleDeadzoneHandler(InnerDeadzoneValue, OuterDeadzoneValue);
+                break;
+            case DeadzoneHandlingStyle.Strict:
+                _deadZoneHandler = new StrictDeadzoneHandler(InnerDeadzoneValue, OuterDeadzoneValue);
+                break;
+        }
+    }
+
+    void FixedUpdate ()
+    {
         OVRInput.FixedUpdate();
 
         HandleRotation();
@@ -134,44 +157,44 @@ public class MovementControlComponent : MonoBehaviour
         // update rotation sliders
         if (YUpTransform != null && YDownTransform != null)
         {
-            //if (yawFactor > 0)
-            //{
+            if (yawFactor > 0)
+            {
                 YUpTransform.localScale = new Vector3(1, yawFactor * 2, 1); //TODO: weird values
                 YDownTransform.localScale = new Vector3(1, 0, 1);
-            /*}
+            }
             else
             {
                 YUpTransform.localScale = new Vector3(1, 0, 1);
                 YDownTransform.localScale = new Vector3(1, yawFactor * 2, 1);
-            }*/
+            }
         }
 
         if (XUpTransform != null && XDownTransform != null)
         {
-            //if (pitchFactor > 0)
-            //{
+            if (pitchFactor > 0)
+            {
                 XUpTransform.localScale = new Vector3(pitchFactor * 2, 1, 1);
                 XDownTransform.localScale = new Vector3(0, 1, 1);
-            /*}
+            }
             else
             {
                 XUpTransform.localScale = new Vector3(0, 1, 1);
                 XDownTransform.localScale = new Vector3(pitchFactor * 2, 1, 1);
-            }*/
+            }
         }
 
         if (ZUpTransform != null && ZDownTransform != null)
         {
-            //if (rollFactor > 0)
-            //{
+            if (rollFactor > 0)
+            {
                 ZUpTransform.localScale = new Vector3(rollFactor * -2, 1, 1);
                 ZDownTransform.localScale = new Vector3(0, 1, 1);
-            /*}
+            }
             else
             {
                 ZUpTransform.localScale = new Vector3(0, 1, 1);
                 ZDownTransform.localScale = new Vector3(rollFactor * -2, 1, 1);
-            }*/
+            }
         }
     }
 
@@ -322,5 +345,42 @@ public class MovementControlComponent : MonoBehaviour
     private void ApplyMovementTranslation(Transform transform, float baseMovementSpeed)
     {
         transform.position += transform.forward * _currentSpeedFactor * baseMovementSpeed * Time.deltaTime;
+    }
+
+    /// <summary>
+    /// Validate unity fields for easier usage
+    /// </summary>
+    public void OnValidate()
+    {
+        if(BaseMovementSpeed < 0)
+            Debug.LogError("BaseMovementSpeed can't be negative!");
+
+        if (Acceleration < 0)
+            Debug.LogError("Acceleration can't be negative!");
+
+        if(YawRotationSpeed < 0 || PitchRotationSpeed < 0 || RollRotationSpeed < 0)
+            Debug.LogError("Rotation speeds can't be negative!");
+
+        if (ForwardSpeedSteps < 0)
+            Debug.LogError("ForwardSpeedSteps can't be negative!");
+
+        if (BackwardSpeedSteps < 0)
+            Debug.LogError("BackwardSpeedSteps can't be negative!");
+
+        if (InnerDeadzoneValue < 0 || InnerDeadzoneValue > 1)
+            Debug.LogError("InnerDeadzoneValue is out of bounds!");
+
+        if (OuterDeadzoneValue < 0 || OuterDeadzoneValue > 1)
+            Debug.LogError("OuterDeadzoneValue is out of bounds!");
+
+        if (InnerDeadzoneValue > OuterDeadzoneValue)
+            Debug.LogError("InnerDeadzoneValue is larger than OuterDeadzoneValue!");
+
+        if(AxisTransformScaleMax == 0 && (XUpTransform != null || XDownTransform != null || YUpTransform != null || YDownTransform != null 
+            || ZUpTransform != null || ZDownTransform != null))
+            Debug.LogError("AxisTransformScaleMax can't be 0 when Axis transforms are set!");
+
+        if(ScaleValuePerSpeedStep == 0 && (TargetSpeedTransform != null || CurrentSpeedTransform != null))
+            Debug.LogError("ScaleValuePerSpeedStep can't be 0 when Speed transforms are set!");
     }
 }

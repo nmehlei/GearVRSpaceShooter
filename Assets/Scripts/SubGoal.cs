@@ -11,7 +11,7 @@ public class SubGoal : MonoBehaviour
     // Unity Fields
 
     [Tooltip("The incrementing number that indicates the order the SubGoals shall be reached.")]
-    public int subGoalNumber;
+    public int SubGoalNumber;
 
     [Header("Materials")]
     [Tooltip("Material that is being used while SubGoal is in inactive state.")]
@@ -28,7 +28,7 @@ public class SubGoal : MonoBehaviour
     void FixedUpdate ()
 	{
 	    var subGoalManager = SubGoalManager.GetInstance();
-	    var isActiveNow = subGoalManager.NextSubGoalNumber == subGoalNumber;
+	    var isActiveNow = subGoalManager.NextSubGoalNumber == SubGoalNumber;
 
         // if active state changed ..
 	    if (_isActive != isActiveNow)

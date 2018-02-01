@@ -17,9 +17,18 @@ namespace Assets.Scripts
         /// <returns></returns>
         public static string ToCounterTimeString(this TimeSpan timeSpan)
         {
-            return string.Format("{0}:{1}", 
-                timeSpan.Minutes < 10 ? "0" + timeSpan.Minutes : timeSpan.Minutes.ToString(),
-                timeSpan.Seconds < 10 ? "0" + timeSpan.Seconds : timeSpan.Seconds.ToString());
+            var minutes = timeSpan.Minutes;
+            var seconds = timeSpan.Seconds;
+
+            minutes += timeSpan.Hours * 60;
+
+            // only return --:-- when otherwise resulting string would be too big
+            if (minutes > 99)
+                return "--:--";
+
+            return string.Format("{0}:{1}",
+                minutes < 10 ? "0" + minutes : minutes.ToString(),
+                seconds < 10 ? "0" + seconds : seconds.ToString());
         }
     }
 }

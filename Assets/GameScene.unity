@@ -1084,7 +1084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 4
+  SubGoalNumber: 4
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!4 &676489204 stripped
@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 9
+  SubGoalNumber: 9
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!65 &701859732
@@ -1396,7 +1396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 3
+  SubGoalNumber: 3
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!4 &732246218 stripped
@@ -1919,7 +1919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 5
+  SubGoalNumber: 5
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!4 &966560597 stripped
@@ -2011,7 +2011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 6
+  SubGoalNumber: 6
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!65 &972422813
@@ -2130,7 +2130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 10
+  SubGoalNumber: 10
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!65 &988264729
@@ -2272,7 +2272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 2
+  SubGoalNumber: 2
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!4 &994106313 stripped
@@ -2364,7 +2364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 7
+  SubGoalNumber: 7
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!65 &1004693620
@@ -2433,8 +2433,8 @@ Transform:
   - {fileID: 1025469946}
   - {fileID: 701859735}
   - {fileID: 988264732}
-  - {fileID: 1858854621}
   - {fileID: 1394448555}
+  - {fileID: 1858854621}
   - {fileID: 1021872449}
   - {fileID: 2145446035}
   m_Father: {fileID: 0}
@@ -2525,7 +2525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 13
+  SubGoalNumber: 13
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!65 &1021872447
@@ -2644,7 +2644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 8
+  SubGoalNumber: 8
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!65 &1025469943
@@ -3279,7 +3279,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: 762fed2ebbad59a46aa822f797beaa1b, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: 762fed2ebbad59a46aa822f797beaa1b, type: 3}
       propertyPath: m_LocalScale.x
@@ -3327,7 +3327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 11
+  SubGoalNumber: 11
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!65 &1394448553
@@ -3503,17 +3503,20 @@ MonoBehaviour:
   BackwardSpeedSteps: 3
   InnerDeadzoneValue: 0.01
   OuterDeadzoneValue: 0.25
+  DeadzoneHandling: 0
   XUpTransform: {fileID: 1032138132}
   XDownTransform: {fileID: 1530186265}
   YUpTransform: {fileID: 668288598}
   YDownTransform: {fileID: 1405185511}
   ZUpTransform: {fileID: 778234614}
   ZDownTransform: {fileID: 1155709533}
+  AxisTransformScaleMax: 0.48
   CurrentSpeedTransform: {fileID: 857569356}
   TargetSpeedTransform: {fileID: 2089432691}
   ScaleValuePerSpeedStep: 0.013
   MiniShipTransform: {fileID: 1848912544}
   InvertY: 0
+  UseRightHandedController: 1
 --- !u!54 &1458084396
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3692,7 +3695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 1
+  SubGoalNumber: 1
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!4 &1525597615 stripped
@@ -4376,7 +4379,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: 762fed2ebbad59a46aa822f797beaa1b, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: 762fed2ebbad59a46aa822f797beaa1b, type: 3}
       propertyPath: m_LocalScale.x
@@ -4424,7 +4427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 12
+  SubGoalNumber: 12
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!65 &1858854618
@@ -4801,7 +4804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db0ee1827c99d44dbde6202db30bed8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subGoalNumber: 14
+  SubGoalNumber: 14
   InactiveMaterial: {fileID: 2100000, guid: 65ef07c2396502c4e9065695d1aa4704, type: 2}
   ActiveMaterial: {fileID: 2100000, guid: 9e2e32b9d4b78a547b22a5550bbe2946, type: 2}
 --- !u!65 &2145446032

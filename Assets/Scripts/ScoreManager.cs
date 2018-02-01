@@ -41,14 +41,14 @@ public class ScoreManager : MonoBehaviour
             var nextSubGoalNumber = subGoalManager.NextSubGoalNumber;
 
             // if the player went through the current sub goal ..
-            if (subGoal.subGoalNumber == nextSubGoalNumber)
+            if (subGoal.SubGoalNumber == nextSubGoalNumber)
             {
                 // then switch to the next one
                 Points++;
                 subGoalManager.IncrementSubGoalNumber();
 
                 // if it was the last one, then set flag for game end
-                if (subGoal.subGoalNumber == MaxSubGoalNumber)
+                if (subGoal.SubGoalNumber == MaxSubGoalNumber)
                 {
                     _gameEnded = true;
                     _gameEndTimeSpan = DateTime.UtcNow - _startTime;
