@@ -8,7 +8,7 @@ The project idea had it's origin in the dire need to have the most immersive fli
 
 Though there is, as of now, no further development planned, I am open to anyone who wants to contribute in some way.
 
-## Usage
+## Usage of demo app
 
 ### Requirements
 
@@ -32,7 +32,14 @@ To properly run the game, one needs:
 
 ### Controls
 
-...
+* __3-axis movement__: Rotate ship
+* __Touch touchpad__: Set speed, based on y-axis position of touch
+* __Press touchpad__: Enable/Disable 3-axis movement
+* __Back key__: Reset level
+* __Trigger__: Shoot projectiles
+* __Hold home key__: Recalibrate controller (via Oculus SDK)
+
+The cockpit was designed to help you visualize your current input. Should help to understand quickly how all of it works.
 
 ### Goal
 
@@ -43,6 +50,15 @@ Fly through all (14) rings in the lowest possible time. Don't fly too fast or yo
 The main component inside the source code is the *MovementControlComponent*. It uses the Gear VR Controller input data to extract rotational data as well as touchpad touch and click data to control a player object (like a space ship).
 
 It can easily be used for other projects, as long as the Oculus SDK is included as well. During development, there were curious things that happened with Oculus' calibration, so it is adviced to use the newest available SDK version.
+
+### Component usage
+
+Same requirements as mentioned above apply for the component. 
+
+1. Import all Script files from *Assets/Scripts/MovementControl* to your unity project.
+2. Add script *MovementControlComponent* to your player object
+3. Configure script properties to suit your needs
+4. Enjoy
 
 ## Additional files
 
