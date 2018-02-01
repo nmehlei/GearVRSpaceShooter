@@ -3496,14 +3496,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseMovementSpeed: 10
   Acceleration: 0.025
-  YawRotationSpeed: 3
-  PitchRotationSpeed: 3
-  RollRotationSpeed: 4
+  YawRotationSpeed: 0.75
+  PitchRotationSpeed: 0.75
+  RollRotationSpeed: 1
   ForwardSpeedSteps: 10
   BackwardSpeedSteps: 3
   InnerDeadzoneValue: 0.01
   OuterDeadzoneValue: 0.25
-  DeadzoneHandling: 0
+  DeadzoneHandling: 1
   XUpTransform: {fileID: 1032138132}
   XDownTransform: {fileID: 1530186265}
   YUpTransform: {fileID: 668288598}

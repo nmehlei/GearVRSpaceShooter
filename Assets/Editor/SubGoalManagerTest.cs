@@ -7,14 +7,14 @@ using Assets;
 public class SubGoalManagerTest {
 
 	[Test]
-	public void SubGoalManager_Initializes_With_Correct_Values()
+	public void Initializes_With_Correct_Values()
 	{
 	    var subGoalManager = SubGoalManager.GetInstance();
         Assert.AreEqual(1, subGoalManager.NextSubGoalNumber);
 	}
 
     [Test]
-    public void SubGoalManager_Returns_Correct_Value_After_Increment()
+    public void Returns_Correct_Value_After_Increment()
     {
         var subGoalManager = SubGoalManager.GetInstance();
         subGoalManager.IncrementSubGoalNumber();
@@ -22,7 +22,7 @@ public class SubGoalManagerTest {
     }
 
     [Test]
-    public void SubGoalManager_Returns_Correct_Value_After_Multiple_Increments()
+    public void Returns_Correct_Value_After_Multiple_Increments()
     {
 
         var subGoalManager = SubGoalManager.GetInstance();
@@ -33,7 +33,7 @@ public class SubGoalManagerTest {
     }
 
     [Test]
-    public void SubGoalManager_Returns_Correct_Value_After_Reset()
+    public void Returns_Correct_Value_After_Reset()
     {
 
         var subGoalManager = SubGoalManager.GetInstance();

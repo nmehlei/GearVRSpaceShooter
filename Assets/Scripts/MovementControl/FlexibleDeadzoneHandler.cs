@@ -23,11 +23,14 @@ namespace Assets.Scripts.MovementControl
             if (rotationVector.magnitude < InnerDeadzoneValue)
                 return 0;
             if (sourceValue < -OuterDeadzoneValue)
-                return -OuterDeadzoneValue;
+                return -1;
             if (sourceValue > OuterDeadzoneValue)
-                return OuterDeadzoneValue;
-            
-            return sourceValue;
+                return 1;
+
+            // calculate scale factor to have a range from 0 to 1 even though input values are restricted due to dead zones
+            var scaleFactor = 1 / (OuterDeadzoneValue - InnerDeadzoneValue);
+
+            return sourceValue * scaleFactor;
         }
     }
 }

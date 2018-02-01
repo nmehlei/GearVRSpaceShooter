@@ -160,13 +160,13 @@ public class MovementControlComponent : MonoBehaviour
         {
             if (yawFactor > 0)
             {
-                YUpTransform.localScale = new Vector3(1, yawFactor * 2, 1); //TODO: weird values
+                YUpTransform.localScale = new Vector3(1, yawFactor * AxisTransformScaleMax, 1);
                 YDownTransform.localScale = new Vector3(1, 0, 1);
             }
             else
             {
                 YUpTransform.localScale = new Vector3(1, 0, 1);
-                YDownTransform.localScale = new Vector3(1, yawFactor * 2, 1);
+                YDownTransform.localScale = new Vector3(1, yawFactor * AxisTransformScaleMax, 1);
             }
         }
 
@@ -174,13 +174,13 @@ public class MovementControlComponent : MonoBehaviour
         {
             if (pitchFactor > 0)
             {
-                XUpTransform.localScale = new Vector3(pitchFactor * 2, 1, 1);
+                XUpTransform.localScale = new Vector3(pitchFactor * AxisTransformScaleMax, 1, 1);
                 XDownTransform.localScale = new Vector3(0, 1, 1);
             }
             else
             {
                 XUpTransform.localScale = new Vector3(0, 1, 1);
-                XDownTransform.localScale = new Vector3(pitchFactor * 2, 1, 1);
+                XDownTransform.localScale = new Vector3(pitchFactor * AxisTransformScaleMax, 1, 1);
             }
         }
 
@@ -188,13 +188,13 @@ public class MovementControlComponent : MonoBehaviour
         {
             if (rollFactor > 0)
             {
-                ZUpTransform.localScale = new Vector3(rollFactor * -2, 1, 1);
+                ZUpTransform.localScale = new Vector3(rollFactor * -AxisTransformScaleMax, 1, 1);
                 ZDownTransform.localScale = new Vector3(0, 1, 1);
             }
             else
             {
                 ZUpTransform.localScale = new Vector3(0, 1, 1);
-                ZDownTransform.localScale = new Vector3(rollFactor * -2, 1, 1);
+                ZDownTransform.localScale = new Vector3(rollFactor * -AxisTransformScaleMax, 1, 1);
             }
         }
     }
@@ -209,8 +209,11 @@ public class MovementControlComponent : MonoBehaviour
     {        
         if (MiniShipTransform == null) return;
 
+        const float miniShipScaleFactor = 0.25f;
+
         // update the mini ship orientation
-        MiniShipTransform.localRotation = new Quaternion(yawFactor, pitchFactor, rollFactor, 1);
+        MiniShipTransform.localRotation = new Quaternion(yawFactor * miniShipScaleFactor, 
+            pitchFactor * miniShipScaleFactor, rollFactor * miniShipScaleFactor, 1);
     }
 
     /// <summary>

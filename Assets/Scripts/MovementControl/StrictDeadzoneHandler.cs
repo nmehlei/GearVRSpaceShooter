@@ -23,11 +23,14 @@ namespace Assets.Scripts.MovementControl
             if (sourceValue > -InnerDeadzoneValue && sourceValue < InnerDeadzoneValue)
                 return 0;
             if (sourceValue < -OuterDeadzoneValue)
-                return -OuterDeadzoneValue;
+                return -1;
             if (sourceValue > OuterDeadzoneValue)
-                return OuterDeadzoneValue;
+                return 1;
 
-            return sourceValue;
+            // calculate scale factor to have a range from 0 to 1 even though input values are restricted due to dead zones
+            var scaleFactor = 1 / (OuterDeadzoneValue - InnerDeadzoneValue);
+
+            return sourceValue * scaleFactor;
         }
     }
 }

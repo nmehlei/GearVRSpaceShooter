@@ -1,15 +1,11 @@
 ﻿using System;
-using UnityEngine;
-using UnityEditor;
-using UnityEngine.TestTools;
 using NUnit.Framework;
-using System.Collections;
 using Assets.Scripts;
 
 public class TimeSpanExtenderTest
 {
     [Test]
-	public void TimeSpan_ToCounterTimeString_Returns_Correct_String_For_0_Seconds()
+	public void ToCounterTimeString_Returns_Correct_String_For_0_Seconds()
 	{
 	    var timeSpan = TimeSpan.FromSeconds(0);
 	    var result = timeSpan.ToCounterTimeString();
@@ -19,7 +15,7 @@ public class TimeSpanExtenderTest
     }
 
     [Test]
-    public void TimeSpan_ToCounterTimeString_Returns_Correct_String_For_43_Seconds()
+    public void ToCounterTimeString_Returns_Correct_String_For_43_Seconds()
     {
         var timeSpan = TimeSpan.FromSeconds(43);
         var result = timeSpan.ToCounterTimeString();
@@ -29,7 +25,7 @@ public class TimeSpanExtenderTest
     }
 
     [Test]
-    public void TimeSpan_ToCounterTimeString_Returns_Correct_String_For_2_Minutes_11_Seconds()
+    public void ToCounterTimeString_Returns_Correct_String_For_2_Minutes_11_Seconds()
     {
         var timeSpan = new TimeSpan(0, 2, 11);
         var result = timeSpan.ToCounterTimeString();
@@ -39,7 +35,7 @@ public class TimeSpanExtenderTest
     }
 
     [Test]
-    public void TimeSpan_ToCounterTimeString_Returns_Correct_String_For_99_Minutes_59_Seconds()
+    public void ToCounterTimeString_Returns_Correct_String_For_99_Minutes_59_Seconds()
     {
         var timeSpan = new TimeSpan(0, 99, 59);
         var result = timeSpan.ToCounterTimeString();
@@ -49,7 +45,7 @@ public class TimeSpanExtenderTest
     }
 
     [Test]
-    public void TimeSpan_ToCounterTimeString_Returns_Correct_String_For_Over_Maximal_Time()
+    public void ToCounterTimeString_Returns_Correct_String_For_Over_Maximal_Time()
     {
         var timeSpan = new TimeSpan(3, 0, 0);
         var result = timeSpan.ToCounterTimeString();
