@@ -58,7 +58,8 @@ Same requirements as mentioned above apply for the component.
 1. Import all Script files from *Assets/Scripts/MovementControl* to your unity project.
 2. Add script *MovementControlComponent* to your player object
 3. Configure script properties to suit your needs
-4. Enjoy
+4. If you like, you can use the prefab from *Assets/Prefabs/CockpitControlsTemplate* to have all the necessary objects for a basic cockpit
+5. Enjoy
 
 ## Additional files
 
