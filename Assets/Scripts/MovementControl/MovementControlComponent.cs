@@ -25,50 +25,50 @@ public class MovementControlComponent : MonoBehaviour
     public float RollRotationSpeed = DefaultRotationSpeed;
 
     [Header("Speed Steps")]
-    [Tooltip("")]
+    [Tooltip("Amount of speed steps for forward movement.")]
     public int ForwardSpeedSteps = 8;
-    [Tooltip("")]
+    [Tooltip("Amount of speed steps for backward movement.")]
     public int BackwardSpeedSteps = 4;
 
     [Header("Deadzone")]
     [Range(0f, 0.99f)]
-    [Tooltip("")]
+    [Tooltip("Inner Deadzone that will be ignored from input.")]
     public float InnerDeadzoneValue = 0.01f;
     [Range(0.01f, 1f)]
-    [Tooltip("")]
+    [Tooltip("Outer Deadzone that will be ignored from input.")]
     public float OuterDeadzoneValue = 0.25f;
 
-    [Tooltip("")]
+    [Tooltip("Preferred Deadzone handling style to use.")]
     public DeadzoneHandlingStyle DeadzoneHandling;
 
     [Header("Slider properties")]
 
-    [Tooltip("")]
+    [Tooltip("Transform for the X up slider.")]
     public Transform XUpTransform;
-    [Tooltip("")]
+    [Tooltip("Transform for the X down slider.")]
     public Transform XDownTransform;
 
-    [Tooltip("")]
+    [Tooltip("Transform for the Y up slider.")]
     public Transform YUpTransform;
-    [Tooltip("")]
+    [Tooltip("Transform for the Y down slider.")]
     public Transform YDownTransform;
 
-    [Tooltip("")]
+    [Tooltip("Transform for the Z up slider.")]
     public Transform ZUpTransform;
-    [Tooltip("")]
+    [Tooltip("Transform for the Z down slider.")]
     public Transform ZDownTransform;
 
-    [Tooltip("")]
+    [Tooltip("Maximal value for axis slider scaling.")]
     public float AxisTransformScaleMax;
 
-    [Tooltip("")]
+    [Tooltip("Transform for the current speed slider.")]
     public Transform CurrentSpeedTransform;
-    [Tooltip("")]
+    [Tooltip("Transform for the target speed slider.")]
     public Transform TargetSpeedTransform;
-    [Tooltip("")]
+    [Tooltip("Scale value to use for each achieved speed step.")]
     public float ScaleValuePerSpeedStep;
 
-    [Tooltip("")]
+    [Tooltip("Transform for the Mini-Ship hologram.")]
     public Transform MiniShipTransform;
 
     [Header("Misc")]
@@ -83,7 +83,7 @@ public class MovementControlComponent : MonoBehaviour
     private bool _movementEnabled = true;
     private float _currentSpeedFactor = 0;
     private float _targetSpeedFactor = 0;
-    private DeadzoneHandler _deadZoneHandler;
+    private DeadzoneHandler _deadzoneHandler;
 
     // Methods
 
@@ -93,11 +93,12 @@ public class MovementControlComponent : MonoBehaviour
         switch (DeadzoneHandling)
         {
             case DeadzoneHandlingStyle.Flexible:
-                _deadZoneHandler = new FlexibleDeadzoneHandler(InnerDeadzoneValue, OuterDeadzoneValue);
+                _deadzoneHandler = new FlexibleDeadzoneHandler(InnerDeadzoneValue, OuterDeadzoneValue);
                 break;
             case DeadzoneHandlingStyle.Strict:
-                _deadZoneHandler = new StrictDeadzoneHandler(InnerDeadzoneValue, OuterDeadzoneValue);
+                _deadzoneHandler = new StrictDeadzoneHandler(InnerDeadzoneValue, OuterDeadzoneValue);
                 break;
+                // could be expanded to support more handlers, for example one that uses non-linear value scaling
         }
     }
 
@@ -119,9 +120,9 @@ public class MovementControlComponent : MonoBehaviour
         {
             var rotation = GetRotationQuaternion();
 
-            var yawFactor = CalculateYawFactor(rotation);
-            var pitchFactor = CalculatePitchFactor(rotation);
-            var rollFactor = CalculateRollFactor(rotation);
+            var yawFactor = MovementCalculationHelper.CalculateYawFactor(rotation, _deadzoneHandler);
+            var pitchFactor = MovementCalculationHelper.CalculatePitchFactor(rotation, _deadzoneHandler);
+            var rollFactor = MovementCalculationHelper.CalculateRollFactor(rotation, _deadzoneHandler);
 
             // do rotate, based on specified rotation speeds
             transform.Rotate(yawFactor * YawRotationSpeed, pitchFactor * PitchRotationSpeed, rollFactor * RollRotationSpeed);
@@ -147,7 +148,7 @@ public class MovementControlComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Updates the sliders inside the cockpit which shows the current usage of each axis
     /// </summary>
     /// <param name="yawFactor">current relative yaw factor</param>
     /// <param name="pitchFactor">current relative pitch factor</param>
@@ -199,7 +200,7 @@ public class MovementControlComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// updates the hologram inside the cockpit which shows the current relative orientation of the input
+    /// Updates the hologram inside the cockpit which shows the current relative orientation of the input
     /// </summary>
     /// <param name="yawFactor">current relative yaw factor</param>
     /// <param name="pitchFactor">current relative pitch factor</param>
@@ -213,22 +214,30 @@ public class MovementControlComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Handle the speed progression for the player object
     /// </summary>
     private void HandleSpeed()
     {
+        // only update target speed factor if touchpad is being touched
         if (OVRInput.Get(OVRInput.Touch.PrimaryTouchpad))
         {
-            int stepSum = ForwardSpeedSteps + BackwardSpeedSteps;
+            int totalStepsSum = ForwardSpeedSteps + BackwardSpeedSteps;
             var speedTouchPosition = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+
             // + 1 to only have positive values, divided by 2 to have range 0 to 1
-            _targetSpeedFactor = (speedTouchPosition.y + 1) / 2;
-            _targetSpeedFactor = _targetSpeedFactor * stepSum;
-            _targetSpeedFactor -= BackwardSpeedSteps; //TODO wat
+            // results in normalized input
+            var normalizedInput = (speedTouchPosition.y + 1) / 2;
+
+            // calculate targeted speed step and then 
+            _targetSpeedFactor = normalizedInput * totalStepsSum;
+
+            // remove offset due to normalization
+            _targetSpeedFactor -= BackwardSpeedSteps;
         }
 
-        _currentSpeedFactor = UpdateSpeedFactor(_currentSpeedFactor, _targetSpeedFactor);
+        _currentSpeedFactor = MovementCalculationHelper.UpdateSpeedFactor(_currentSpeedFactor, _targetSpeedFactor, Acceleration);
 
+        // update UI elements
         if (CurrentSpeedTransform != null)
         {
             CurrentSpeedTransform.localScale = new Vector3(1, _currentSpeedFactor * ScaleValuePerSpeedStep, 1);
@@ -238,7 +247,7 @@ public class MovementControlComponent : MonoBehaviour
             TargetSpeedTransform.localScale = new Vector3(1, _targetSpeedFactor * ScaleValuePerSpeedStep, 1);
         }
 
-        ApplyMovementTranslation(transform, BaseMovementSpeed);
+        MovementCalculationHelper.ApplyMovementTranslation(transform, BaseMovementSpeed, _currentSpeedFactor);
     }
 
     /// <summary>
@@ -258,9 +267,9 @@ public class MovementControlComponent : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Gets the rotation quaternion for the selected controller
     /// </summary>
-    /// <returns></returns>
+    /// <returns>rotation quaternion</returns>
     private Quaternion GetRotationQuaternion()
     {
         // get active controller
@@ -270,83 +279,7 @@ public class MovementControlComponent : MonoBehaviour
         // This is important because values have origin in calibrated null value (as in, the holding position)
         return OVRInput.GetLocalControllerRotation(controller);
     }
-
-    /// <summary>
-    /// factor in inner and outer deadzones, inner to correct for "jitter" and outer to handle out-of-bounds input ranges
-    /// </summary>
-    /// <param name="factor">input value that is to be adjusted</param>
-    /// <returns></returns>
-    private float CalculateAdjustedRotationFactor(float factor)
-    {
-        if (factor > -InnerDeadzoneValue && factor < InnerDeadzoneValue)
-            return 0;
-        if (factor < -OuterDeadzoneValue)
-            return -OuterDeadzoneValue;
-        if (factor > OuterDeadzoneValue)
-            return OuterDeadzoneValue;
-
-        return factor;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="rotation"></param>
-    /// <returns></returns>
-    private float CalculateYawFactor(Quaternion rotation)
-    {
-        return CalculateAdjustedRotationFactor(rotation.x);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="rotation"></param>
-    /// <returns></returns>
-    private float CalculatePitchFactor(Quaternion rotation)
-    {
-        return CalculateAdjustedRotationFactor(rotation.y);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="rotation"></param>
-    /// <returns></returns>
-    private float CalculateRollFactor(Quaternion rotation)
-    {
-        return CalculateAdjustedRotationFactor(rotation.z);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="previousSpeed"></param>
-    /// <param name="targetSpeed"></param>
-    /// <returns></returns>
-    private float UpdateSpeedFactor(float previousSpeed, float targetSpeed)
-    {
-        if (targetSpeed > previousSpeed)
-        {
-            return previousSpeed + Acceleration;
-        }
-        if (targetSpeed < previousSpeed)
-        {
-            return previousSpeed - Acceleration;
-        }
-        return previousSpeed;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="transform"></param>
-    /// <param name="baseMovementSpeed"></param>
-    private void ApplyMovementTranslation(Transform transform, float baseMovementSpeed)
-    {
-        transform.position += transform.forward * _currentSpeedFactor * baseMovementSpeed * Time.deltaTime;
-    }
-
+    
     /// <summary>
     /// Validate unity fields for easier usage
     /// </summary>

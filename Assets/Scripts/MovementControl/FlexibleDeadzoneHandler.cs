@@ -1,7 +1,11 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.MovementControl
 {
+    /// <summary>
+    /// Deadzone handler with a more flexible approach, based on radial dead zone calculation
+    /// </summary>
     public class FlexibleDeadzoneHandler : DeadzoneHandler
     {
         // Constructors
@@ -14,9 +18,16 @@ namespace Assets.Scripts.MovementControl
 
         // Methods
 
-        public override float AdjustValue(float sourceValue)
+        public override float AdjustValue(float sourceValue, Vector3 rotationVector)
         {
-            throw new NotImplementedException();
+            if (rotationVector.magnitude < InnerDeadzoneValue)
+                return 0;
+            if (sourceValue < -OuterDeadzoneValue)
+                return -OuterDeadzoneValue;
+            if (sourceValue > OuterDeadzoneValue)
+                return OuterDeadzoneValue;
+            
+            return sourceValue;
         }
     }
 }

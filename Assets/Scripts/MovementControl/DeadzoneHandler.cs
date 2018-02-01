@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.MovementControl
 {
@@ -19,6 +20,6 @@ namespace Assets.Scripts.MovementControl
 
         // Methods
 
-        public abstract float AdjustValue(float sourceValue);
+        public abstract float AdjustValue(float sourceValue, Vector3 rotationVector);
     }
 }

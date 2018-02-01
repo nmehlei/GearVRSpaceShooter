@@ -1,7 +1,11 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.MovementControl
 {
+    /// <summary>
+    /// Deadzone handler with a more strict approach, based on axial dead zone calculation
+    /// </summary>
     public class StrictDeadzoneHandler : DeadzoneHandler
     {
         // Constructors
@@ -14,7 +18,7 @@ namespace Assets.Scripts.MovementControl
 
         // Methods
 
-        public override float AdjustValue(float sourceValue)
+        public override float AdjustValue(float sourceValue, Vector3 rotationVector)
         {
             if (sourceValue > -InnerDeadzoneValue && sourceValue < InnerDeadzoneValue)
                 return 0;
