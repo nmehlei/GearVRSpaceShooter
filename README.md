@@ -61,12 +61,19 @@ Same requirements as mentioned above apply for the component.
 4. If you like, you can use the prefab from *Assets/Prefabs/CockpitControlsTemplate* to have all the necessary objects for a basic cockpit
 5. Enjoy
 
+### Dependencies
+
+* Unity (Version 2017.3.0f3 was used during development)
+* Oculus Integration Package from Unity Asset Store (Version 1.18 was used during development)
+
+Newer versions than this should most likely work as well, though earlier versions of the Oculus Integration Package did seem to have problems during calibration of the Gear VR controller.
+
 ## Additional files
 
 There are three additional files inside the directory "Documents":
 
-* __VRSpaceShooter-Projektbeschreibung.pdf__: The pitch document for this project
-* __VR-Presentation.pptx__: The presentation slides
+* __VRSpaceShooter-PitchDocument.pdf__: The pitch document for this project (in german)
+* __VR-Presentation.pptx__: The presentation slides (in german)
 * __Demo-Video.mp4__: A demo video to show the game in action, as a Virtual Reality game is hard to show in pictures
 
 ## Tests
