@@ -49,6 +49,8 @@ Fly through all 14 rings in the lowest possible time. Don't fly too fast or you'
 
 The main component inside the source code is the *MovementControlComponent*. It uses the Gear VR Controller input data to extract rotational data as well as touchpad touch and click data to control a player object (like a space ship).
 
+It can be configured to multiple scenarios and preferences. For example, it contains two variants for deadzone handling (strict and flexible, or axis and radial), since different projects could require different restrictions. Additionally, it contains a prefab to quickstart a cockpit-implementation with UI elements for visualization of input data.
+
 It can easily be used for other projects, as long as the Oculus SDK is included as well. During development, there were curious things that happened with Oculus' calibration, so it is adviced to use the newest available SDK version.
 
 ### Component usage
