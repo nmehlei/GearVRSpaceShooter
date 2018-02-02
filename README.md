@@ -2,18 +2,20 @@
 
 ## Description
 
-GearVRSpaceShooter is a mobile-oriented 3D VR-based Science Fiction Space Shooter (yes I am awesome at naming stuff) that uses a gyroscope-based controller to emulate a joystick as input medium. It was implemented with Unity as well as the Oculus SDK.
+GearVRSpaceShooter* is a mobile-oriented 3D VR-based Science Fiction Space Shooter that uses a gyroscope-based controller to emulate a joystick as input medium. It was implemented with Unity as well as the Oculus SDK.
 
 The project idea had it's origin in the dire need to have the most immersive flight input method in a world where there are no (or very few) joystick-like input methods available for mobile devices. It was developed in the context of an academic exercise to showcase a component implementation of realtime interactive input handling.
 
 Though there is, as of now, no further development planned, I am open to anyone who wants to contribute in some way.
+
+* yes, I am awesome at naming stuff
 
 ## Usage of demo app
 
 ### Requirements
 
 To properly run the game, one needs:
-* Samsung Gear VR HMD
+* Samsung Gear VR
 * Samsung Gear VR Controller
 * Compatible Smartphone (test device was a Samsung Galaxy S7)
 
@@ -43,7 +45,7 @@ The cockpit was designed to help you visualize your current input. Should help t
 
 ### Goal
 
-Fly through all (14) rings in the lowest possible time. Don't fly too fast or you'll overshoot and very likely have a veeery bad score.
+Fly through all 14 rings in the lowest possible time. Don't fly too fast or you'll overshoot and very likely have a veeery bad score.
 
 ## Component information
 
