@@ -10,7 +10,7 @@ Though there is, as of now, no further development planned, I am open to anyone 
 
 ## Screenshot
 
-![Screenshot](https://raw.githubusercontent.com/nmehlei/GearVRSpaceShooter/master/Documents/Screenshot.jpg "Screenshot")
+![Screenshot](https://raw.githubusercontent.com/nmehlei/GearVRSpaceShooter/master/Documents/Screenshot.jpg =250x250 "Screenshot")
 
 ## Usage of demo app
 
