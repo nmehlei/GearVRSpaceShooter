@@ -8,6 +8,10 @@ The project idea had it's origin in the dire need to have the most immersive fli
 
 Though there is, as of now, no further development planned, I am open to anyone who wants to contribute in some way.
 
+## Screenshot
+
+![Screenshot](https://raw.githubusercontent.com/nmehlei/GearVRSpaceShooter/master/Documents/Screenshot.jpg "Screenshot")
+
 ## Usage of demo app
 
 ### Requirements
